@@ -9,10 +9,9 @@ build html:
   - python -m venv venv
   - source venv/bin/activate
   - pip install notebook nbconvert
-  - jupyter nbconvert --to html *.ipynb
   - mkdir -p html
-  - mv *.html html
-  - set -i 's/ipynb/html/g' html/*.html
+  - jupyter nbconvert --to html --output-dir=html *.ipynb
+  - sed -i 's/ipynb/html/g' html/*.html
   artifacts:
     untracked: true
     when: on_success
