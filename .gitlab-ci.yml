@@ -12,6 +12,7 @@ build html:
   - jupyter nbconvert --to html *.ipynb
   - mkdir -p html
   - mv *.html html
+  - set -i 's/ipynb/html/g' html/*.html
   artifacts:
     untracked: true
     when: on_success
