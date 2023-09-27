@@ -10,16 +10,20 @@ build html:
   - source venv/bin/activate
   - pip install notebook nbconvert
   - jupyter nbconvert --to html *.ipynb
+  - mkdir -p html
+  - mv *.html html
   artifacts:
     untracked: true
     when: on_success
     expire_in: 30 days
     
 pages:
+  tags:
+    - newrunner
   dependencies:
     - "build html"
   script:
-    - mv *.html build
+    - mv html/ public/
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
