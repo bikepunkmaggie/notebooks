@@ -1,6 +1,7 @@
 pages:
   tags:
     - newrunner
+  script:
     - python -m venv venv
     - source venv/bin/activate
     - pip install notebook nbconvert
