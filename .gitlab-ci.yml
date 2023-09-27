@@ -1,13 +1,25 @@
 # The Docker image that will be used to build your app
 image: ruby:2.7
-# Functions that should be executed before the build script is run
-before_script:
+
+build html:
+  stage: build
+  tags:
+    - newrunner
+  script:
   - python -m venv venv
   - source venv/bin/activate
   - pip install notebook nbconvert
+  - jupyter nbconvert --to html *.ipynb
+  artifacts:
+    untracked: true
+    when: on_success
+    expire_in: 30 days
+    
 pages:
+  dependencies:
+    - "build html"
   script:
-    - jupyter nbconvert --to html *.ipynb
+    - mv *.html build
   artifacts:
     paths:
       # The folder that contains the files to be exposed at the Page URL
